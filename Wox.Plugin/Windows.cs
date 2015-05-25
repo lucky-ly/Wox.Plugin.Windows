@@ -17,11 +17,10 @@ namespace Wox.Plugin.Windows
 			var results = new List<Result>();
 
 			var search = string.Join(" ", query.ActionParameters.ToArray()).ToLower();
-			var maxLev = (int)Math.Round(search.Length*0.2);
 
 			var processes = Process.GetProcesses()
 				.Where(p => !string.IsNullOrEmpty(p.MainWindowTitle))
-				.Where(p => IsProcessPass(p,search,maxLev))
+				.Where(p => IsProcessPass(p,search))
 				.Select(p => new Result
 			{
 				Title = p.MainWindowTitle,
@@ -57,17 +56,14 @@ namespace Wox.Plugin.Windows
 			this._context = context;
 		}
 
-		private static bool IsProcessPass(Process candidate, string search, int maxLev)
+		private static bool IsProcessPass(Process candidate, string search)
 		{
 			if (string.IsNullOrEmpty(search)) return true;
 
-			var pass = false;
 			var regexp = string.Join(".*?", search.ToCharArray().Select(x=>x.ToString()).ToArray());
-			var mtc = Regex.Match(candidate.MainWindowTitle, regexp);
+			var match = Regex.Match(candidate.MainWindowTitle.ToLower(), regexp);
+			var pass = match.Success;
 
-//			pass = pass || candidate.MainWindowTitle.ToLower().Contains(search);
-//			pass = pass || Levenshtein.Compute(candidate.MainWindowTitle.ToLower(), search) <= maxLev;
-			pass = pass || mtc.Success;
 			return pass;
 		}
 
