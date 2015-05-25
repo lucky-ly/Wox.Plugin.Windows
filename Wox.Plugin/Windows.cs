@@ -23,15 +23,17 @@ namespace Wox.Plugin.Windows
 				.Select(p =>
 					{
 						var score = 100;
-						var match = MatchProcess(p, search);
-						if (!p.MainWindowTitle.Contains(search))
-							score = score - match.Length;
+						var matchTitle = MatchString(p.MainWindowTitle, search);
+						var matchExecutable = MatchString(p.ProcessName, search);
+						var scoreOff = Math.Max(matchExecutable.Length, matchTitle.Length);
+						if (!p.MainWindowTitle.Contains(search) && !p.ProcessName.Contains(search))
+							score = score - scoreOff;
 
-						if (match.Success)
+						if (matchTitle.Success || matchExecutable.Success)
 							return new Result
 							{
 								Title = p.MainWindowTitle,
-								SubTitle = p.ProcessName + " : " + score,
+								SubTitle = p.ProcessName,
 								Action = c =>
 								{
 									SetForegroundWindow(p.MainWindowHandle);
