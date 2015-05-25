@@ -77,6 +77,15 @@ namespace Wox.Plugin.Windows
 			return Regex.Match(candidate.MainWindowTitle.ToLower(), regexp);
 		}
 
+		private static Match MatchString(string candidate, string search)
+		{
+			var regexp = string.Join(".*?", search.ToCharArray().Select(x => x.ToString()).ToArray());
+		
+			if (string.IsNullOrEmpty(regexp)) regexp = ".*";
+			
+			return Regex.Match(candidate.ToLower(), regexp);
+		}
+
 		[DllImport("USER32.dll")]
 		public static extern bool SetForegroundWindow(IntPtr hWnd);
 	}
