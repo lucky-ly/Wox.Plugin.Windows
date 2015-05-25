@@ -1,12 +1,12 @@
 ﻿{
     "ID": "2B9A3F60F01A4C489C87320B77CF4D5D",
-    "ActionKeyword": "w",
+    "ActionKeyword": "*",
     "Name": "Window",
     "Description": "Search opened windows",
     "Author": "LuckyLy",
     "Version": "1.0.0",
     "Language": "csharp",
-    "Website": "http://www.getwox.com",
+    "Website": "https://github.com/lucky-ly/Wox.Plugin.Windows",
     "IcoPath": "img\\main.png",
     "ExecuteFileName": "Wox.Plugin.Windows.dll"
 }
