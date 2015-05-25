@@ -20,18 +20,30 @@ namespace Wox.Plugin.Windows
 
 			var processes = Process.GetProcesses()
 				.Where(p => !string.IsNullOrEmpty(p.MainWindowTitle))
-				.Where(p => IsProcessPass(p,search))
-				.Select(p => new Result
-			{
-				Title = p.MainWindowTitle,
-				SubTitle = p.ProcessName,
-				Action = c =>
-				{
-					SetForegroundWindow(p.MainWindowHandle);
-					return true;
-				},
-				IcoPath = GetPath(p)
-			});
+				.Select(p =>
+					{
+						var score = 100;
+						var match = MatchProcess(p, search);
+						if (!p.MainWindowTitle.Contains(search))
+							score = score - match.Length;
+
+						if (match.Success)
+							return new Result
+							{
+								Title = p.MainWindowTitle,
+								SubTitle = p.ProcessName + " : " + score,
+								Action = c =>
+								{
+									SetForegroundWindow(p.MainWindowHandle);
+									return true;
+								},
+								IcoPath = GetPath(p),
+								Score = score
+							};
+
+						return null;
+					})
+				.Where(x => x != null);
 
 			this._context.API.StopLoadingBar();
 			results.AddRange(processes);
@@ -65,6 +77,15 @@ namespace Wox.Plugin.Windows
 			var pass = match.Success;
 
 			return pass;
+		}
+
+		private static Match MatchProcess(Process candidate, string search)
+		{
+			var regexp = string.Join(".*?", search.ToCharArray().Select(x => x.ToString()).ToArray());
+		
+			if (string.IsNullOrEmpty(regexp)) regexp = ".*";
+			
+			return Regex.Match(candidate.MainWindowTitle.ToLower(), regexp);
 		}
 
 		[DllImport("USER32.dll")]
