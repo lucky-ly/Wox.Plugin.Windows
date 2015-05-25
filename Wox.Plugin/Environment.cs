@@ -14,7 +14,7 @@ namespace Wox.Plugin.Environment
 
 		public void Init(PluginInitContext context)
 		{
-			throw new NotImplementedException();
+			this._context = context;
 		}
 	}
 }
