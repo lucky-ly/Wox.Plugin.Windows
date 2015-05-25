@@ -48,6 +48,11 @@
   <ItemGroup>
     <None Include="packages.config" />
     <None Include="plugin.json" />
+  <ItemGroup />
+  <ItemGroup>
+    <Content Include="img\main.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
