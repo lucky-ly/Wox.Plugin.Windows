@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Wox.Plugin.Environment
+namespace Wox.Plugin.Windows
 {
 	/// <summary>
 	/// Contains approximate string matching

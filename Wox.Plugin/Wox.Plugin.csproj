@@ -7,8 +7,8 @@
     <ProjectGuid>{68284EE5-8870-4017-9843-76A2D9B693A1}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Wox.Plugin.Environment</RootNamespace>
-    <AssemblyName>Wox.Plugin.Environment</AssemblyName>
+    <RootNamespace>Wox.Plugin.Windows</RootNamespace>
+    <AssemblyName>Wox.Plugin.Windows</AssemblyName>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -42,7 +42,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Environment.cs" />
+    <Compile Include="Windows.cs" />
     <Compile Include="Levenstein.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -60,10 +60,10 @@
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
-    <PostBuildEvent>copy /B /Y $(TargetPath) D:\Soft\Wox\Plugins\Environment-1b4e84dd-38b0-4058-acf0-da287547160d\Wox.Plugin.Windows.dll
-mkdir D:\Soft\Wox\Plugins\Environment-1b4e84dd-38b0-4058-acf0-da287547160d\img
-copy /B /Y $(TargetDir)\img\main.png D:\Soft\Wox\Plugins\Environment-1b4e84dd-38b0-4058-acf0-da287547160d\img\main.png
-copy /Y $(TargetDir)\plugin.json D:\Soft\Wox\Plugins\Environment-1b4e84dd-38b0-4058-acf0-da287547160d\plugin.json
+    <PostBuildEvent>copy /B /Y $(TargetPath) D:\Soft\Wox\Plugins\Windows-1b4e84dd-38b0-4058-acf0-da287547160d\Wox.Plugin.Windows.dll
+mkdir D:\Soft\Wox\Plugins\Windows-1b4e84dd-38b0-4058-acf0-da287547160d\img
+copy /B /Y $(TargetDir)\img\main.png D:\Soft\Wox\Plugins\Windows-1b4e84dd-38b0-4058-acf0-da287547160d\img\main.png
+copy /Y $(TargetDir)\plugin.json D:\Soft\Wox\Plugins\Windows-1b4e84dd-38b0-4058-acf0-da287547160d\plugin.json
 
 rem "C:\Program Files (x86)\WinRAR\winrar.exe" a -afzip -m0 -ed -r -ep1 ..\..\..\Windows.wox -x*.pdb -x*.wox -xWox.Plugin.dll</PostBuildEvent>
   </PropertyGroup>

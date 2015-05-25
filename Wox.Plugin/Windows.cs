@@ -5,9 +5,9 @@ using System.Linq;
 using System.Runtime.InteropServices;
 using System.Text.RegularExpressions;
 
-namespace Wox.Plugin.Environment
+namespace Wox.Plugin.Windows
 {
-	public class Environment : IPlugin
+	public class Windows : IPlugin
 	{
 		private PluginInitContext _context;
 
