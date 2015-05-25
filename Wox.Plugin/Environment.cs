@@ -16,5 +16,8 @@ namespace Wox.Plugin.Environment
 		{
 			this._context = context;
 		}
+
+		[DllImport("USER32.dll")]
+		public static extern bool SetForegroundWindow(IntPtr hWnd);
 	}
 }
