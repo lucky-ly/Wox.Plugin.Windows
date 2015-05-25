@@ -70,15 +70,6 @@ namespace Wox.Plugin.Windows
 			this._context = context;
 		}
 
-		private static Match MatchProcess(Process candidate, string search)
-		{
-			var regexp = string.Join(".*?", search.ToCharArray().Select(x => x.ToString()).ToArray());
-		
-			if (string.IsNullOrEmpty(regexp)) regexp = ".*";
-			
-			return Regex.Match(candidate.MainWindowTitle.ToLower(), regexp);
-		}
-
 		private static Match MatchString(string candidate, string search)
 		{
 			var regexp = string.Join(".*?", search.ToCharArray().Select(x => x.ToString()).ToArray());
