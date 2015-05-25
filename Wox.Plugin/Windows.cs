@@ -68,17 +68,6 @@ namespace Wox.Plugin.Windows
 			this._context = context;
 		}
 
-		private static bool IsProcessPass(Process candidate, string search)
-		{
-			if (string.IsNullOrEmpty(search)) return true;
-
-			var regexp = string.Join(".*?", search.ToCharArray().Select(x=>x.ToString()).ToArray());
-			var match = Regex.Match(candidate.MainWindowTitle.ToLower(), regexp);
-			var pass = match.Success;
-
-			return pass;
-		}
-
 		private static Match MatchProcess(Process candidate, string search)
 		{
 			var regexp = string.Join(".*?", search.ToCharArray().Select(x => x.ToString()).ToArray());
