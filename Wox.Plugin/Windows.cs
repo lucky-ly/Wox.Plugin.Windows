@@ -81,5 +81,9 @@ namespace Wox.Plugin.Windows
 
 		[DllImport("USER32.dll")]
 		public static extern bool SetForegroundWindow(IntPtr hWnd);
+
+		[DllImport("user32.dll", EntryPoint = "FindWindowEx")]
+		public static extern IntPtr FindWindowEx(IntPtr hwndParent, IntPtr hwndChildAfter, string lpszClass, string lpszWindow);
+
 	}
 }
