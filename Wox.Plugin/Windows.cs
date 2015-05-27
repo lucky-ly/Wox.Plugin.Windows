@@ -4,6 +4,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.Runtime.InteropServices;
 using System.Text.RegularExpressions;
+using ManagedWinapi.Windows;
 
 namespace Wox.Plugin.Windows
 {
@@ -17,7 +18,7 @@ namespace Wox.Plugin.Windows
 			var results = new List<Result>();
 
 			var search = string.Join(" ", query.ActionParameters.ToArray()).ToLower();
-
+			/*
 			var processes = Process.GetProcesses()
 				.Where(p => !string.IsNullOrEmpty(p.MainWindowTitle))
 				.Select(p =>
@@ -46,9 +47,29 @@ namespace Wox.Plugin.Windows
 						return null;
 					})
 				.Where(x => x != null);
+			*/
 
+			var windows = this.GetWindowsManaged().Select(w => new Result
+			{
+				Title = w.Title,
+				SubTitle = w.Process != null ? w.Process.ProcessName : "Process is null",
+				IcoPath = GetPath(w.Process),
+				Action = c =>
+				{
+					w.TopMost = true;
+					return true;
+				},
+				ContextMenu =
+				{
+					new Result {Title = "Make Top", Action = c => {w.TopMost = true; return true;}},
+					new Result {Title = "Highlight", Action = c => {w.Highlight(); return true;}},
+					new Result {Title = "Close", Action = c => {w.SendClose(); return true;}},
+					new Result {Title = "Refresh", Action = c => {w.Refresh(); return true;}},
+				}
+			});
 			this._context.API.StopLoadingBar();
-			results.AddRange(processes);
+			//results.AddRange(processes);
+			results.AddRange(windows);
 			return results;
 		}
 
@@ -79,6 +100,19 @@ namespace Wox.Plugin.Windows
 			return Regex.Match(candidate.ToLower(), regexp);
 		}
 
+		private List<SystemWindow> GetWindowsManaged()
+		{
+			var windows = SystemWindow.AllToplevelWindows.ToList();
+			var toplevelCount = windows.Count;
+
+			for (var i = 0; i < toplevelCount; i++)
+			{
+				windows.AddRange(windows[i].AllChildWindows);
+			}
+
+			return windows;
+		}
+		
 		[DllImport("USER32.dll")]
 		public static extern bool SetForegroundWindow(IntPtr hWnd);
 
