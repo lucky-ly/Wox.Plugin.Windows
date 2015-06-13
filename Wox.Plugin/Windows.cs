@@ -100,18 +100,7 @@ namespace Wox.Plugin.Windows
 			return Regex.Match(candidate.ToLower(), regexp);
 		}
 
-		private List<SystemWindow> GetWindowsManaged()
-		{
-			var windows = SystemWindow.AllToplevelWindows.ToList();
-			var toplevelCount = windows.Count;
 
-			for (var i = 0; i < toplevelCount; i++)
-			{
-				windows.AddRange(windows[i].AllChildWindows);
-			}
-
-			return windows;
-		}
 		
 		[DllImport("USER32.dll")]
 		public static extern bool SetForegroundWindow(IntPtr hWnd);
