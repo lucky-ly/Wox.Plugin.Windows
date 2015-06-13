@@ -65,14 +65,6 @@
     <Content Include="lib\ManagedWinapi\ManagedWinapi.dll" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
-  <PropertyGroup>
-    <PostBuildEvent>copy /B /Y $(TargetPath) D:\Soft\Wox\Plugins\Windows-1b4e84dd-38b0-4058-acf0-da287547160d\Wox.Plugin.Windows.dll
-mkdir D:\Soft\Wox\Plugins\Windows-1b4e84dd-38b0-4058-acf0-da287547160d\img
-copy /B /Y $(TargetDir)\img\main.png D:\Soft\Wox\Plugins\Windows-1b4e84dd-38b0-4058-acf0-da287547160d\img\main.png
-copy /Y $(TargetDir)\plugin.json D:\Soft\Wox\Plugins\Windows-1b4e84dd-38b0-4058-acf0-da287547160d\plugin.json
-
-rem "C:\Program Files (x86)\WinRAR\winrar.exe" a -afzip -m0 -ed -r -ep1 ..\..\..\Windows.wox -x*.pdb -x*.wox -xWox.Plugin.dll</PostBuildEvent>
-  </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">
