@@ -49,6 +49,7 @@
     <Compile Include="WindowHandleInfo.cs" />
     <Compile Include="Windows.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="WindowsProvider.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
